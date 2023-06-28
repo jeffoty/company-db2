@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
-ruby '~> 3.1.2'
+ruby '~> 3.2.2'
 
 gem 'rails', '~> 7.0.4.3'
 
 gem 'activeadmin', '~> 2.9'
+gem 'active_model_serializers', '~> 0.10.2'
 gem 'active_storage_base64', '~> 2.0.0'
 gem 'arctic_admin', '~> 3.3.0'
 gem 'aws-sdk-s3', '~> 1.75', require: false
