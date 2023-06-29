@@ -16,15 +16,20 @@
 #  first_name             :string           default("")
 #  last_name              :string           default("")
 #  username               :string           default("")
+#  role_id                :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  provider               :string           default("email"), not null
 #  uid                    :string           default(""), not null
 #  tokens                 :json
+#  location_id            :bigint           not null
+#  depo_site_id           :bigint           not null
 #
 # Indexes
 #
+#  index_users_on_depo_site_id          (depo_site_id)
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_location_id           (location_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
