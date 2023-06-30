@@ -28,7 +28,9 @@ ActiveAdmin.register User do
     column :last_name
     column :username
     column :sign_in_count
-    column :role_id
+    column :role do |user|
+      user.role.name
+    end
     column :depo_site_id
     column :location_id
     column :created_at
