@@ -8,6 +8,10 @@
 #  updated_at :datetime         not null
 #
 class Location < ApplicationRecord
-    has_many :users
-    has_many :depo_sites
+    has_many :orders
+    has_many :inventory
+    has_many :financial_data
+    has_many :staff
+    has_many :special_economic_groups
+    has_many :depo_site
 end

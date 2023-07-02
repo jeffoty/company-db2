@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_29_014111) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_02_005744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -62,6 +62,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_014111) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "constituencies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "delayed_jobs", id: :serial, force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -110,20 +116,48 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_014111) do
     t.index ["error_group_id"], name: "index_exception_hunter_errors_on_error_group_id"
   end
 
+  create_table "financial_infos", force: :cascade do |t|
+    t.bigint "location_id", null: false
+    t.integer "invoice_number"
+    t.string "transaction_type"
+    t.string "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_financial_infos_on_location_id"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "location_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_inventories_on_location_id"
+    t.index ["product_id"], name: "index_inventories_on_product_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "logistics", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.integer "tracking_number"
+    t.integer "shiping_date"
+    t.integer "reciving_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_logistics_on_order_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string "type"
     t.integer "date"
-    t.integer "quantity"
     t.integer "amount_paid"
     t.string "payment_code"
     t.string "status"
-    t.string "product"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -136,10 +170,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_014111) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "purchases", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "product_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.date "sale_date"
+    t.integer "sale_amount"
+    t.bigint "special_economic_group_id", null: false
+    t.bigint "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_sales_on_order_id"
+    t.index ["special_economic_group_id"], name: "index_sales_on_special_economic_group_id"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -148,6 +201,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_014111) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_settings_on_key", unique: true
+  end
+
+  create_table "special_economic_groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "group_leader_id"
+    t.integer "group_size"
+    t.bigint "constituency_id", null: false
+    t.bigint "ward_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["constituency_id"], name: "index_special_economic_groups_on_constituency_id"
+    t.index ["ward_id"], name: "index_special_economic_groups_on_ward_id"
+  end
+
+  create_table "staffs", force: :cascade do |t|
+    t.bigint "location_id", null: false
+    t.string "first_name"
+    t.string "second_name"
+    t.string "role", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_staffs_on_location_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -179,9 +254,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_014111) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "wards", force: :cascade do |t|
+    t.string "name"
+    t.bigint "constituency_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["constituency_id"], name: "index_wards_on_constituency_id"
+  end
+
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "depo_sites", "locations"
   add_foreign_key "exception_hunter_errors", "exception_hunter_error_groups", column: "error_group_id"
+  add_foreign_key "financial_infos", "locations"
+  add_foreign_key "inventories", "locations"
+  add_foreign_key "inventories", "products"
+  add_foreign_key "logistics", "orders"
+  add_foreign_key "sales", "orders"
+  add_foreign_key "sales", "special_economic_groups"
+  add_foreign_key "special_economic_groups", "constituencies"
+  add_foreign_key "special_economic_groups", "wards"
+  add_foreign_key "staffs", "locations"
   add_foreign_key "users", "depo_sites"
   add_foreign_key "users", "locations"
+  add_foreign_key "wards", "constituencies"
 end

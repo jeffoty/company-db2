@@ -41,7 +41,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_method
     end
 
     def role_params
-        params.require(:role).permit(name_ids: [])
-        # params.require(:cleaner).permit(city_ids: [])
+        params.require(:role).permit(:name)
     end
 end

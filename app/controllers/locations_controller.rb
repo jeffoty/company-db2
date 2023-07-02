@@ -18,7 +18,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_method
     end
 
     def destroy
-         location = Location.find(params[:id])
+        location = Location.find(params[:id])
         location.destroy
         head :no_content, status: :deleted
 
@@ -31,7 +31,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_method
     end
 
     def location_params
-        params.require(:location).permit(:name, deposite_id: [])
+        params.require(:location).permit(:name, :deposite_id)
     end
 
     def record_not_found_method
