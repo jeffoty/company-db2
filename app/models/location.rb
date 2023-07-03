@@ -10,7 +10,6 @@
 class Location < ApplicationRecord
     has_many :orders
     has_many :inventory
-    has_many :staff
     has_many :special_economic_groups
     has_many :depo_site
     has_many :users

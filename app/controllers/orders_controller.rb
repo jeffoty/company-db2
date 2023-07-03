@@ -17,6 +17,12 @@ class OrdersController < ApplicationController
         render json: order
     end
 
+    def create
+        order = Order.new(order_params)
+        order.save!
+        render json: order, status: :created
+    end
+
     def destroy
         order = find_order
         order.destroy
@@ -31,7 +37,7 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-        params.require(:order).permit(:type, :date, :quantity, :amount_paid, :payment_code, :status, :product_id,)
+        params.require(:order).permit(:type, :date, :quantity, :amount_paid, :payment_code, :status)
     end
 
     def record_not_found_method

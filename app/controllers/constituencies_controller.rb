@@ -1,4 +1,4 @@
-class ConstituencysController < ApplicationController
+class ConstituenciesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_method
 
     def index
@@ -18,9 +18,9 @@ class ConstituencysController < ApplicationController
     end
 
     def create
-        constituency = constituency.new(constituency_params)
+        constituency = Constituency.new(constituency_params)
         constituency.save!
-        render json: role, status: :created
+        render json: constituency, status: :created
     end
 
     def destroy

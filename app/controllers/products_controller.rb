@@ -17,6 +17,12 @@ class ProductsController < ApplicationController
         render json: product
     end
 
+    def create
+        product = Product.new(product_params)
+        product.save!
+        render json: product, status: :created
+    end
+
     def destroy
         product = find_product
         product.destroy
@@ -28,7 +34,7 @@ class ProductsController < ApplicationController
 
     def find_product
         Product.find!(params[:id])
-    end
+      end      
 
     def product_params
         params.require(:product).permit(:name, :description, :price)

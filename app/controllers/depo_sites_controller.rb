@@ -12,15 +12,16 @@ class DepoSitesController < ApplicationController
     end
   
     def create
-      depo_site = Depo_site.create!(depo_site_params)
-      render json: depo_site, status: :created
-    end
+      depo = find_depo_site
+      depo.save!
+      render json: depo, status: :created
+  end
   
-    def update
-      depo_site = find_depo_site
-      depo_site.update!(depo_site_params)
-      render json: depo_site
-    end
+  def create
+    depo = DepoSite.new(depo_site_params)
+    depo.save!
+    render json: depo, status: :created
+  end
   
     def destroy
       depo_site = find_depo_site
@@ -35,7 +36,7 @@ class DepoSitesController < ApplicationController
     end
   
     def depo_site_params
-      params.require(:depo_site).permit(:name)
+      params.require(:depo_site).permit(:name, :location_id)
     end
   
     def record_not_found_method

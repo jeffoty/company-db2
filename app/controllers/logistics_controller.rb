@@ -17,6 +17,12 @@ class LogisticsController < ApplicationController
         render json: logistic
     end
 
+    def create
+        logistic = Logistic.new(logistic_params)
+        logistic.save!
+        render json: logistic, status: :created
+    end
+
     def destroy
         logistic = find_logistic
         logistic.destroy

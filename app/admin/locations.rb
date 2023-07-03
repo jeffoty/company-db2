@@ -5,7 +5,7 @@ ActiveAdmin.register Location do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :name
+  permit_params :name
   #
   # or
   #

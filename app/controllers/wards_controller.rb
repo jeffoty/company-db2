@@ -20,7 +20,7 @@ class WardsController < ApplicationController
     def create
         ward = ward.new(ward_params)
         ward.save!
-        render json: role, status: :created
+        render json: ward, status: :created
     end
 
     def destroy

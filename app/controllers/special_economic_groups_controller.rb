@@ -18,6 +18,12 @@ class SpecialEconomicGroupsController < ApplicationController
         render json: seo
     end
 
+    def create
+        seo = SpecialEconomicGroup.new(seo_params)
+        seo.save!
+        render json: seo, status: :created
+    end
+
     def destroy
         seo = seo.find(params[:id])
         seo.destroy
@@ -32,7 +38,7 @@ class SpecialEconomicGroupsController < ApplicationController
     end
 
     def seo_params
-        params.require(:seo).permit(:name, group_leader_id: find_group_leader_id, group_size: calculate_group_size, :order_id, :ward_id)
+        params.require(:seo).permit(:name, group_leader_id: find_group_leader_id, group_size: calculate_group_size, :ward_id)
     end
 
     def record_not_found_method

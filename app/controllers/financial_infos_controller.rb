@@ -17,6 +17,12 @@ class FinancialInfosController < ApplicationController
         render json: financial_info
     end
 
+    def create
+        finance = FinancialInfo.new(constituency_params)
+        finance.save!
+        render json: finance, status: :created
+    end
+
     def destroy
         financial_info = find_financial_info
         financial_info.destroy

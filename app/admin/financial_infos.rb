@@ -5,7 +5,7 @@ ActiveAdmin.register FinancialInfo do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :location_id, :invoice_number, :transaction_type, :amount
+  permit_params :location_id, :invoice_number, :transaction_type, :amount
   #
   # or
   #

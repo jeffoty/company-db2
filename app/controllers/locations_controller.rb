@@ -17,6 +17,12 @@ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_method
         render json: location
     end
 
+    def create
+        location = Location.new(location_params)
+        location.save!
+        render json: location, status: :created
+    end
+
     def destroy
         location = Location.find(params[:id])
         location.destroy

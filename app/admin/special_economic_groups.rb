@@ -1,16 +1,16 @@
-ActiveAdmin.register Ward do
+ActiveAdmin.register SpecialEconomicGroup do
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :constituency_id
+  permit_params :name, :group_leader_id, :group_size, :ward_id
   #
   # or
   #
   # permit_params do
-  #   permitted = [:name, :constituency_id]
+  #   permitted = [:name, :group_leader_id, :group_size, :order_id, :ward_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
