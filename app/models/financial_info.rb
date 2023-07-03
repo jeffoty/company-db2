@@ -15,5 +15,5 @@
 #  index_financial_infos_on_location_id  (location_id)
 #
 class FinancialInfo < ApplicationRecord
-  belongs_to :location
+  has_many :orders
 end

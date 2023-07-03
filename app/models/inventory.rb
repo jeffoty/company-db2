@@ -17,4 +17,5 @@
 class Inventory < ApplicationRecord
   belongs_to :product
   belongs_to :location
+  belongs_to :special_economic_group
 end

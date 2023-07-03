@@ -15,5 +15,5 @@
 #  index_logistics_on_order_id  (order_id)
 #
 class Logistic < ApplicationRecord
-  belongs_to :order
+  # belongs_to :order
 end

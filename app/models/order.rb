@@ -12,11 +12,20 @@
 #  updated_at   :datetime         not null
 #
 class Order < ApplicationRecord
-    # belongs_to :product
+    has_many :products
     belongs_to :user
-    belongs_to :location
-    belongs_to :depo_site
-    has_one :logistics
     belongs_to :special_economic_group
-    has_many :purchases
+    belongs_to :financial_info
+
+    def update_inventory_quantity
+        inventory = Inventory.find_by(product_id: product_id)
+        
+        if order_type == "purchase"
+          inventory.quantity += quantity
+        elsif order_type == "sales"
+          inventory.quantity -= quantity
+        end
+        
+        inventory.save
+      end
 end

@@ -15,4 +15,5 @@
 class Ward < ApplicationRecord
   belongs_to :constituency
   has_many :special_economic_groups
+  has_many :users
 end

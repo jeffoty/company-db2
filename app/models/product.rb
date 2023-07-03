@@ -10,6 +10,5 @@
 #  updated_at  :datetime         not null
 #
 class Product < ApplicationRecord
-    has_many :orders
-    has_many :purchases
+    belongs_to :order
 end

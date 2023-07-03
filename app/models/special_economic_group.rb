@@ -17,8 +17,8 @@
 #  index_special_economic_groups_on_ward_id          (ward_id)
 #
 class SpecialEconomicGroup < ApplicationRecord
-  belongs_to :constituency
   belongs_to :ward
   has_many :orders
-  has_many :purchases, through: :orders
+  has_many :users
+  has_many :inventorys
 end

@@ -31,7 +31,7 @@ class FinancialInfosController < ApplicationController
     end
 
     def financial_info_params
-        params.require(:financial_info).permit(:invoice_number, :transaction_type, :amount, :location_id)
+        params.require(:financial_info).permit(:order_id, :transaction_type, :amount)
     end
 
     def record_not_found_method
