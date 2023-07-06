@@ -7,9 +7,18 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :username
-      f.input :location_id
-      f.input :depo_site_id
-      f.input :role_id
+
+      f.input :location do |m|
+        Location.find(m.location_ids).map(&:name).join('')
+      end
+
+      f.input :depo_site do |m|
+        DepoSite.find(m.depo_site_ids).map(&:name).join('')
+      end
+      
+      f.input :role do |m|
+        Role.find(m.role_ids).map(&:name).join('')
+      end
 
       if f.object.new_record?
         f.input :password

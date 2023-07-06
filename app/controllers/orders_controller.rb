@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-        params.require(:order).permit(:type, :date, :quantity, :amount_paid, :payment_code, :status)
+        params.require(:order).permit(:type, :date, :quantity, :amount_paid, :payment_code, :status, :special_economic_group_id)
     end
 
     def record_not_found_method

@@ -10,6 +10,6 @@
 #  updated_at  :datetime         not null
 #
 class Product < ApplicationRecord
-    # belongs_to :order
+    belongs_to :order
     # has_many :orders
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_02_005744) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_06_054438) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -163,6 +163,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_005744) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "special_economic_group_id", null: false
+    t.index ["special_economic_group_id"], name: "index_orders_on_special_economic_group_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -191,11 +193,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_005744) do
     t.string "name"
     t.integer "group_leader_id"
     t.integer "group_size"
-    # t.bigint "order_id", null: false
     t.bigint "ward_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_special_economic_groups_on_order_id"
     t.index ["ward_id"], name: "index_special_economic_groups_on_ward_id"
   end
 
@@ -244,7 +244,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_005744) do
   add_foreign_key "inventories", "locations"
   add_foreign_key "inventories", "products"
   add_foreign_key "logistics", "orders"
-  # add_foreign_key "special_economic_groups", "orders"
+  add_foreign_key "orders", "special_economic_groups"
   add_foreign_key "special_economic_groups", "wards"
   add_foreign_key "users", "depo_sites"
   add_foreign_key "users", "locations"

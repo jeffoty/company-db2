@@ -39,8 +39,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   belongs_to :role
   belongs_to :location
-  # belongs_to :ward
-  # has_many :orders
+  belongs_to :depo_site
   # belongs_to :special_economic_group
 
   devise :database_authenticatable, :registerable,
